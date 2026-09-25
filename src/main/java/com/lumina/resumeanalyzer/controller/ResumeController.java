@@ -1,5 +1,6 @@
 package com.lumina.resumeanalyzer.controller;
 
+import com.lumina.resumeanalyzer.dto.ResumeUploadResponse;
 import com.lumina.resumeanalyzer.exception.InvalidFileException;
 import com.lumina.resumeanalyzer.service.ResumeService;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,9 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadResume(
+    public ResponseEntity<ResumeUploadResponse> uploadResume(
             @RequestParam("file") MultipartFile file
     ) throws InvalidFileException {
-        // Logic to handle resume upload and analysis
         return ResponseEntity.ok(resumeService.uploadResume(file));
     }
 }

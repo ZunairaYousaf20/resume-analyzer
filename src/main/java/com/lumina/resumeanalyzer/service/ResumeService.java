@@ -1,5 +1,6 @@
 package com.lumina.resumeanalyzer.service;
 
+import com.lumina.resumeanalyzer.dto.ResumeUploadResponse;
 import com.lumina.resumeanalyzer.exception.InvalidFileException;
 import com.lumina.resumeanalyzer.parser.IDocumentParser;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,11 @@ public class ResumeService {
 
     private final IDocumentParser documentParser;
 
-    public String uploadResume(MultipartFile file) throws InvalidFileException {
+    public ResumeUploadResponse uploadResume(MultipartFile file) throws InvalidFileException {
 
         validateUploadedFile(file);
 
-        return documentParser.parse(file);
+        return new ResumeUploadResponse(file.getOriginalFilename(), documentParser.parse(file));
     }
 
     private static void validateUploadedFile(MultipartFile file) throws InvalidFileException {
